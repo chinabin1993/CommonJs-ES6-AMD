@@ -239,3 +239,41 @@ console.log(name()); // 123
 ```
 ***注意：使用默认输出时，import不使用{}，使用正常输出时，import需要使用{}!!!***
 
+
+## 03: AMD
+> AMD是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
+
+>AMD也采用require()语句加载模块，它要求两个参数：
+```javascript
+require([module], callback);
+```
+在demo03文件夹中创建几个文件 index.html,main.js,sum.js,all.js以及简单的webpack配置 webpack.config.js
+
+**webpack.config.js**
+```javascript
+module.exports = {
+  entry: {
+    bundle: './main.js'
+  },
+  output: {
+    filename: '[name].js'
+  },
+  mode: 'development'
+}
+```
+**sum.js**
+```javascript
+define(function(){
+  return {
+    sum: function(a, b){
+      return a + b;
+    }
+  }
+})
+```
+**main.js**
+```JavaScript
+require(['./sum'],function(sum){
+  console.log(sum.sum(1,2));
+})
+```
