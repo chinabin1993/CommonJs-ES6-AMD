@@ -189,4 +189,53 @@ export {
   reduce as jian
 }
 ```
+***需要注意的是：ES6模块的import/export目前不支持在node环境中直接使用，可以使用webpack打包之后在浏览器中查看效果***
+
+使用import来加载某个模块
+*e2.js*
+```javascript
+export let name = 'wbin';
+export let age = 26;
+```
+*main.js*
+```javascript
+import {name, age} from './e2';
+console.log(name, age);
+```
+import命令接收一个大括号{}，里面指定要从其他模块加载的变量名。需要注意的是加载的变量名必须和export输出的变量名一致。但是我们可以在improt中给该名称重新命名。
+```javascript
+import {name as wbin, age} from './e2';
+console.log(wbin, age);
+```
+*有时我们需要整体加载所需要的模块，可以使用\*号来加载*
+
+*circle.js*
+```javascript
+export function area(radius) {
+  return (Math.PI * radius * radius);
+}
+export function circumference(radius){
+  return 2 * Math.PI * radius;
+}
+```
+*main.js*
+```javascript
+// 整体引入
+import * as circle from './circle';
+console.log(circle.area(2),circle.circumference(2));
+```
+
+###### 默认输出 export default
+*e3.js*
+```javascript
+export default function(){
+  return '123'
+}
+```
+*main.js*
+```javascript
+import name from './e3';
+console.log(name()); // 123
+```
+***注意：使用默认输出时，import不使用{}，使用正常输出时，import需要使用{}!!!***
 
